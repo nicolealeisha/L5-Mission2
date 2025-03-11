@@ -9,20 +9,26 @@ app.use(express.json());
 app.use(cors());
 
 // 3. Define routes
-app.get("/greet", (req, res) => {
-  const name = req.query.name || "World";
-  res.json({ message: `Hello, ${name}!` });
-});
+
+//----API 1-----
 
 
+
+//----API 2-----
+
+
+
+//----API 3-----
 app.post('/api3', (req,res) =>{
+  //ensure input is a number (if possible)
   const carValue = parseFloat(req.body.car_value);
   const riskRating = parseFloat(req.body.risk_rating);
+  //calculate yearly and monthly premium
   const yearlyPremium = carValue * riskRating / 100;
   const monthlyPremium = yearlyPremium / 12;
   
 
-  //capture all for error handling
+  //error handling for all instances
   if (carValue <= 0 || riskRating <= 0 || riskRating > 5 || isNaN(carValue) || isNaN(riskRating)){
     return res
     .status(400)
@@ -37,12 +43,10 @@ app.post('/api3', (req,res) =>{
       monthly_premium: parseFloat(monthlyPremium.toFixed(1)),
       yearly_premium: parseFloat(yearlyPremium.toFixed(0)),
     });
-}
-
+  }
 });
 
-
-
+//----API 4-----
 
 
 
