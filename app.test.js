@@ -1,22 +1,42 @@
 const request = require("supertest");
 const app = require("./app");
 
-describe("GET /greet", () => {
-  it("should greet the world when no name is provided", async () => {
-    const res = await request(app)
-      .get("/greet")
-      .expect("Content-Type", /json/)
-      .expect(200);
+//API 3
 
-    expect(res.body.message).toBe("Hello, World!");
+test('return premium if correctly inputted value & risk rating', async () => {
+    const response = await request(app).post('/api3')
+    .send({ "car_value" : 3550, "risk_rating": 4})
+
+        console.log(response.body);
+
+        expect(response.body).toHaveProperty('monthly_premium')
+        expect(response.body).toHaveProperty('yearly_premium')
+        expect(response.body.monthly_premium).toEqual(11.8)
+        expect(response.body.yearly_premium).toEqual(142)
   });
 
-  it("should greet the user when a name is provided", async () => {
-    const res = await request(app)
-      .get("/greet?name=John")
-      .expect("Content-Type", /json/)
-      .expect(200);
-
-    expect(res.body.message).toBe("Hello, John!");
-  });
+test('return error if car value 0 or below', async () => {
+    const response = await request(app).post('/api3')
+    .send({ "car_value" : 0, "risk_rating": 5});
+        expect(response.body.error).toEqual('There is an error')
 });
+
+test('return error if risk rating 0 or below', async () => {
+    const response = await request(app).post('/api3')
+    .send({ car_value : 3340, risk_rating: 0})
+        expect(response.body.error).toEqual('There is an error')
+});
+
+test('return error if incorrect data type entered', async () => {
+    const response = await request(app).post('/api3')
+    .send({ "car_value" : 'one hundred', "risk_rating": 5})
+        expect(response.body.error).toEqual('There is an error')
+});
+
+test('return error if risk rating above 5', async () => {
+    const response = await request(app).post('/api3')
+    .send({ "car_value" : 1000, "risk_rating": 6})
+        expect(response.body.error).toEqual('There is an error')
+});
+
+
