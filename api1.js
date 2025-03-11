@@ -23,7 +23,7 @@ app.post("/vehicle-value", (req, res) => {
     return res.status(400).json({ error: "Year must be a positive number" });
   }
 
-  if (year > 2022) {
+  if (year > 2035) {
     return res
       .status(400)
       .json({ error: "Year must be in the present or past" });
