@@ -10,7 +10,7 @@ test("should return correct value for civic 2000 model", async () => {
 
   expect(res.body).toEqual({
     model: "civic",
-    year: "2000",
+    year: 2000,
     value: 6620,
   });
 });
@@ -24,7 +24,7 @@ test("should return correct value for models with only numbers", async () => {
 
   expect(res.body).toEqual({
     model: "123",
-    year: "2000",
+    year: 2000,
     value: 2123,
   });
 });
@@ -53,7 +53,7 @@ test("should return an error if year is negative", async () => {
   });
 });
 
-test("should return year is in future", async () => {
+test("should return year must be in the present or past", async () => {
   const res = await request(app)
     .post("/vehicle-value")
     .send({ model: "civic", year: 2035 })
