@@ -48,3 +48,14 @@ test("should return year must be in the present or past", async () => {
     error: "Year must be in the present or past",
   });
 });
+
+test("should return enter model name should not be null", async () => {
+  const res = await request(app)
+    .post("/vehicle-value")
+    .send({ model: "", year: 2014 })
+    .expect("Content-Type", /json/)
+    .expect(400);
+  expect(res.body).toEqual({
+    error: "Enter some valid input",
+  });
+});
