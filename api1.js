@@ -6,15 +6,6 @@ app.use(express.json());
 app.post("/vehicle-value", (req, res) => {
   const model = req.body.model;
   const year = parseInt(req.body.year, 10);
-  let value = 0;
-  if (model === "civic" && year === 2000) {
-    return res.json({ model, year, value: 6620 });
-  }
-
-  if (model === "123" && year === 2000) {
-    return res.json({ model, year, value: 2123 });
-  }
-
   if (!model || typeof model !== "string" || isNaN(year)) {
     return res.status(400).json({ error: "Enter some valid input" });
   }
@@ -29,7 +20,26 @@ app.post("/vehicle-value", (req, res) => {
       .json({ error: "Year must be in the present or past" });
   }
 
-  return res.json({ model, year, value });
+  // Simple function to calculate model value
+  function calculateModelValue(model) {
+    let sum = 0;
+    let upperCaseModel = model.toUpperCase();
+
+    for (let i = 0; i < upperCaseModel.length; i++) {
+      let charCode = upperCaseModel.charCodeAt(i);
+      if (charCode >= 65 && charCode <= 90) {
+        // Only consider A-Z
+        sum += charCode - 64;
+      }
+    }
+    return sum;
+  }
+
+  // Calculate car value
+  const modelValue = calculateModelValue(model);
+  const carValue = modelValue * 100 + year;
+
+  return res.json({ car_value: carValue });
 });
 
 module.exports = app;

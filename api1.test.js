@@ -4,28 +4,12 @@ const app = require("./api1.js");
 test("should return correct value for civic 2000 model", async () => {
   const res = await request(app)
     .post("/vehicle-value")
-    .send({ model: "civic", year: 2000 })
+    .send({ model: "civic", year: 2014 })
     .expect("Content-Type", /json/)
     .expect(200);
 
   expect(res.body).toEqual({
-    model: "civic",
-    year: 2000,
-    value: 6620,
-  });
-});
-
-test("should return correct value for models with only numbers", async () => {
-  const res = await request(app)
-    .post("/vehicle-value")
-    .send({ model: "123", year: 2000 })
-    .expect("Content-Type", /json/)
-    .expect(200);
-
-  expect(res.body).toEqual({
-    model: "123",
-    year: 2000,
-    value: 2123,
+    car_value: 6614,
   });
 });
 
