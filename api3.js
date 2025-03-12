@@ -1,4 +1,3 @@
-
 // 1. Require dependencies
 const express = require("express");
 const cors = require('cors');
@@ -14,37 +13,27 @@ app.get("/greet", (req, res) => {
   res.json({ message: `Hello, ${name}!` });
 });
 
-
-app.post('/api3', (req,res) =>{
+app.post('/api3', (req, res) => {
   const carValue = parseFloat(req.body.car_value);
   const riskRating = parseFloat(req.body.risk_rating);
-  const yearlyPremium = carValue * riskRating / 100;
-  const monthlyPremium = yearlyPremium / 12;
-  
 
-  //capture all for error handling
-  if (carValue <= 0 || riskRating <= 0 || riskRating > 5 || isNaN(carValue) || isNaN(riskRating)){
+  // Capture all for error handling
+  if (carValue <= 0 || riskRating <= 0 || riskRating > 5 || isNaN(carValue) || isNaN(riskRating)) {
     return res
-    .status(400)
-    .json({error: 'There is an error'})
+      .status(400)
+      .json({ error: 'There is an error' });
   }
 
-  else {
-    console.log(req.body);
-    res
+  const yearlyPremium = carValue * riskRating / 100;
+  const monthlyPremium = yearlyPremium / 12;
+
+  res
     .status(200)
     .json({
       monthly_premium: parseFloat(monthlyPremium.toFixed(1)),
       yearly_premium: parseFloat(yearlyPremium.toFixed(0)),
     });
-}
-
 });
-
-
-
-
-
 
 // 4. Export the app for testing later
 module.exports = app;

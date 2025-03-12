@@ -38,5 +38,3 @@ test('return error if risk rating above 5', async () => {
     .send({ "car_value" : 1000, "risk_rating": 6})
         expect(response.body.error).toEqual('There is an error')
 });
-
-
