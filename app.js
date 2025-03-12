@@ -23,7 +23,7 @@ app.post('/api3', (req,res) =>{
   //ensure input is a number (if possible)
   const carValue = parseFloat(req.body.car_value);
   const riskRating = parseFloat(req.body.risk_rating);
-  //calculate yearly and monthly premium
+  //calculate yearly and monthly premium based on values entered
   const yearlyPremium = carValue * riskRating / 100;
   const monthlyPremium = yearlyPremium / 12;
   
