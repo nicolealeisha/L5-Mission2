@@ -56,5 +56,4 @@ app.post('/api3', (req,res) =>{
 
 
 
-// 4. Export the app 
 module.exports = app;
