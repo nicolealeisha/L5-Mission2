@@ -36,7 +36,7 @@ app.post('/api3', (req,res) =>{
     .json({error: 'Please enter a valid car value above 0'})
   }
 
-  if (riskRating <= 0 || riskRating > 5 ){
+  if (riskRating < 1 || riskRating > 5 ){
     return res
     .status(400)
     .json({error: 'Please enter a risk rating between 1 and 5'})
