@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("./api3");
+const app = require("./app");
 
 //API 3
 
@@ -18,23 +18,23 @@ test('return premium if correctly inputted value & risk rating', async () => {
 test('return error if car value 0 or below', async () => {
     const response = await request(app).post('/api3')
     .send({ "car_value" : 0, "risk_rating": 5});
-        expect(response.body.error).toEqual('There is an error')
+        expect(response.body.error).toEqual('Please enter a valid car value above 0')
 });
 
 test('return error if risk rating 0 or below', async () => {
     const response = await request(app).post('/api3')
     .send({ car_value : 3340, risk_rating: 0})
-        expect(response.body.error).toEqual('There is an error')
+        expect(response.body.error).toEqual('Please enter a risk rating between 1 and 5')
 });
 
 test('return error if incorrect data type entered', async () => {
     const response = await request(app).post('/api3')
     .send({ "car_value" : 'one hundred', "risk_rating": 5})
-        expect(response.body.error).toEqual('There is an error')
+        expect(response.body.error).toEqual('Please enter a numerical value for car value and risk rating')
 });
 
 test('return error if risk rating above 5', async () => {
     const response = await request(app).post('/api3')
     .send({ "car_value" : 1000, "risk_rating": 6})
-        expect(response.body.error).toEqual('There is an error')
+        expect(response.body.error).toEqual('Please enter a risk rating between 1 and 5')
 });

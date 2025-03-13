@@ -1,6 +1,7 @@
 // 1. Import our app from the app.js file
 const app = require("./app");
-const api3 = require("./api3");
+// const api3 = require("./api3");
+// const api4 = require("./api4");
 
 // 2. Start the server on port 3000
 app.listen(3000, () => {
