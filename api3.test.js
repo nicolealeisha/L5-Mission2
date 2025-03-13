@@ -34,6 +34,6 @@ test('return error if risk rating above 5', async () => {
     const response = await request(app).post('/api3')
     .send({ "car_value" : 1000, "risk_rating": 6})
         expect(response.body.error).toEqual('Please enter a risk rating between 1 and 5')
-});
 
+});
 
