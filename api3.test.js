@@ -6,9 +6,6 @@ const app = require("./app");
 test('return premium if correctly inputted value & risk rating', async () => {
     const response = await request(app).post('/api3')
     .send({ "car_value" : 3550, "risk_rating": 4})
-
-        console.log(response.body);
-
         expect(response.body).toHaveProperty('monthly_premium')
         expect(response.body).toHaveProperty('yearly_premium')
         expect(response.body.monthly_premium).toEqual(11.8)
@@ -37,4 +34,6 @@ test('return error if risk rating above 5', async () => {
     const response = await request(app).post('/api3')
     .send({ "car_value" : 1000, "risk_rating": 6})
         expect(response.body.error).toEqual('Please enter a risk rating between 1 and 5')
+
 });
+
