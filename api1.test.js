@@ -13,15 +13,15 @@ test("should return correct value for civic 2000 model", async () => {
   });
 });
 
-test("should return enter some valid input", async () => {
+test("should return an error if year is not in number", async () => {
   const res = await request(app)
     .post("/vehicle-value")
-    .send({ model: "", year: 2020 })
+    .send({ model: "Honda", year: "twentyTwo" })
     .expect("Content-Type", /json/)
     .expect(400);
 
   expect(res.body).toEqual({
-    error: "Enter some valid input",
+    error: "Enter enter year in number",
   });
 });
 
@@ -37,7 +37,7 @@ test("should return an error if year is negative", async () => {
   });
 });
 
-test("should return year must be in the present or past", async () => {
+test("should return an error year must be in the present or past", async () => {
   const res = await request(app)
     .post("/vehicle-value")
     .send({ model: "civic", year: 2035 })

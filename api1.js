@@ -10,7 +10,7 @@ app.post("/vehicle-value", (req, res) => {
     return res.status(400).json({ error: "Enter some valid input" });
   }
 
-  if (year < 0) {
+  if (year <= 0) {
     return res.status(400).json({ error: "Year must be a positive number" });
   }
 
