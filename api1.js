@@ -6,10 +6,12 @@ app.use(express.json());
 app.post("/vehicle-value", (req, res) => {
   const model = req.body.model;
   const year = parseInt(req.body.year, 10);
-  if (!model || typeof model !== "string" || isNaN(year)) {
+  if (!model || typeof model !== "string" || model.trim() === "") {
     return res.status(400).json({ error: "Enter some valid input" });
   }
-
+  if (isNaN(year)) {
+    return res.status(400).json({ error: "Enter  year in number" });
+  }
   if (year <= 0) {
     return res.status(400).json({ error: "Year must be a positive number" });
   }

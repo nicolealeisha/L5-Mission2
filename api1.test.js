@@ -16,12 +16,12 @@ test("should return correct value for civic 2000 model", async () => {
 test("should return an error if year is not in number", async () => {
   const res = await request(app)
     .post("/vehicle-value")
-    .send({ model: "Honda", year: "twentyTwo" })
+    .send({ model: "Honda", year: " " })
     .expect("Content-Type", /json/)
     .expect(400);
 
   expect(res.body).toEqual({
-    error: "Enter enter year in number",
+    error: "Enter  year in number",
   });
 });
 
