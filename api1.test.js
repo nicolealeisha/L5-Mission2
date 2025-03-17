@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("./api1.js");
+const app = require("./app.js");
 
 test("should return correct value for civic 2000 model", async () => {
   const res = await request(app)
